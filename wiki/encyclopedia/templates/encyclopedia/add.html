@@ -1,0 +1,22 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Create New Page
+{% endblock %}
+
+{% block body %}
+<form action="/add" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="title" class="form-label">Title:</label>
+        <input type="text" class="form-control" autofocus name="title">
+    </div>
+    <div class="mb-3">
+        <label for="entry" class="form-label">Enter MarkDown Text:</label>
+        <textarea id="entry" class="form-control" name="content" rows="4"></textarea>
+    </div>
+    <div class="mb-3">
+        <input type="submit" class="form-control" value="Save entry">
+    </div>
+</form>
+{% endblock %}
