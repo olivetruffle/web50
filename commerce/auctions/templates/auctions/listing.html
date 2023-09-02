@@ -1,0 +1,39 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+    <form method="post" action="/addWatchlist">
+        <div class="mb-3">
+            <button type="button" class="btn btn-primary" name="addWatchlist"> Add to watchlist</button>
+        </div>
+    </form>
+    {% endif %}
+    <h2>{{ listing_item.title }}</h2>
+    {% if listing_item.category or listing_item.picture %}
+        <h3>{{ listing_item.category }}</h3>
+        <img src="{{ listing_item.picture }}" alt="item picture" width="500" height="600">
+    {% endif %}
+    <label for="listing_item_desc">Listing item description:</label>
+    <p id="listing_item_desc">{{ listing_item.description }}</p>
+    <h3>Current price: {{ listing_item.starting_bid }}</h3>
+    <label for="bid">Place your bid:</label>
+    <input id="bid" value="{{ listing_item.starting_bid }}" type="number" autofocus name="bid">
+    {% if user == owner %}
+        <form method="post" action="{% url 'sell' %}">
+            <div class="mb-3">
+                <input type="button" class="button btn-primary" placeholder="Sell for {{ listing_item.starting_bid }}">
+            </div>
+        </form>
+    {% endif %}
+    <br>
+    <form method="post" action="/commenting">
+        <label for="comment">Enter your thoughts...</label>
+        <textarea id="comment" name="comment"></textarea>
+    </form>
+    {% for comment in comments %}
+        <div class="mb-3">
+            <label>{{ comment.author }}</label>
+            <p>{{ comment.content }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}

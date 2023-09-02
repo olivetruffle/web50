@@ -1,0 +1,33 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <form method="post" action="/create">
+        <div class="mb-3">
+            <input name="title" autofocus type="text" class="form-control" placeholder="Enter title...">
+        </div>
+        <div class="mb-3">
+            <label for="desc" class="label-control">Listing description:</label>
+            <textarea id="desc" name="description" class="form-control"></textarea>
+        </div>
+        <div class="mb-3">
+            <input type="number" name="starting_bid" autofocus class="form-control" placeholder="Starting bid/Price">
+        </div>
+        <div class="mb-3">
+            <label for="url" class="label-control">Add a picture (URL) o[tional:</label>
+            <input typetype="url" name="picture" class="form-control" id="url" placeholder="https://example.com" pattern="https://.*" size="30">
+        </div>
+        <div class="mb-3">
+            <h2>Add category (optional):</h2>
+            <select name="category">
+                {% for category in categories %}
+                    <option value="{{ category.id }}">
+                        {{ category }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <input type="submit" class="button btn-primary" value="Create Listing">
+        </div>
+    </form>
+{% endblock %}
